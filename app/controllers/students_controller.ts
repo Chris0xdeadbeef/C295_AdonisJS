@@ -6,7 +6,7 @@ export default class StudentsController {
    * Display a list of resource
    */
   async index({ }: HttpContext) {
-    return await Student.all()
+    return await Student.query().orderBy('name').orderBy('firstname')
   }
   /**
    * Display form to create a new record
@@ -16,12 +16,19 @@ export default class StudentsController {
   /**
    * Handle form submission for the create action
    */
-  async store({ request }: HttpContext) { }
-
+  async store({ request }: HttpContext) {
+    // Récupération des données envoyées par le client
+    // On utilise `request.only` pour ne récupérer que les champs nécessaires
+    const student = request.only(['name', 'firstname'])
+    // Création d'un nouvel élève avec les données récupérées
+    return await Student.create(student)
+  }
   /**
    * Show individual record
    */
-  async show({ params }: HttpContext) { }
+  async show({ params }: HttpContext) {
+    return await Student.findOrFail(params.id)
+  }
 
   /**
    * Edit individual record
@@ -31,10 +38,25 @@ export default class StudentsController {
   /**
    * Handle form submission for the edit action
    */
-  async update({ params, request }: HttpContext) { }
+  async update({ params, request }: HttpContext) {
+    const data = request.only(['name', 'firstname'])
+    // Vérification de l'existence de l'élève
+    const student = await Student.findOrFail(params.id)
+    // Mise à jour des données de l'élève
+    student.merge(data)
+    // Sauvegarde des modifications
+    await student.save()
+    // Retour le json de l'élève mis à jour
+    return student
+  }
 
   /**
    * Delete record
    */
-  async destroy({ params }: HttpContext) { }
+  async destroy({ params }: HttpContext) {
+    // Vérification de l'existence de l'élève
+    const student = await Student.findOrFail(params.id)
+    // Suppression de l'élève
+    return await student.delete()
+  }
 }
