@@ -5,8 +5,9 @@ export default class StudentsController {
   /**
    * Display a list of resource
    */
-  async index({ }: HttpContext) {
-    return await Student.query().orderBy('name').orderBy('firstname')
+  async index({ response }: HttpContext) {
+    const student = await Student.query().orderBy('name').orderBy('firstname')
+    return response.ok(student);
   }
   /**
    * Display form to create a new record
@@ -16,12 +17,13 @@ export default class StudentsController {
   /**
    * Handle form submission for the create action
    */
-  async store({ request }: HttpContext) {
+  async store({ request, response }: HttpContext) {
     // Récupération des données envoyées par le client
     // On utilise `request.only` pour ne récupérer que les champs nécessaires
     const student = request.only(['name', 'firstname'])
     // Création d'un nouvel élève avec les données récupérées
-    return await Student.create(student)
+    const s = await Student.create(student)
+    return response.created(student);
   }
   /**
    * Show individual record
