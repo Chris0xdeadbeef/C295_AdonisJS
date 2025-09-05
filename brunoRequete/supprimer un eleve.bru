@@ -1,0 +1,22 @@
+meta {
+  name: supprimer un eleve
+  type: http
+  seq: 6
+}
+
+delete {
+  url: http://localhost:3333/students/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Ristic",
+    "firstname": "Christopher"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
