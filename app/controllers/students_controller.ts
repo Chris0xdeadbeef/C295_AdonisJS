@@ -42,7 +42,10 @@ export default class StudentsController {
    * Handle form submission for the edit action
    */
   async update({ params, request }: HttpContext) {
-    const data = request.only(['name', 'firstname'])
+    // Récupération des données envoyées par le client
+    const { name, firstname } = await request.validateUsing(studentValidator)
+    
+    const data = {name, firstname};
     // Vérification de l'existence de l'élève
     const student = await Student.findOrFail(params.id)
     // Mise à jour des données de l'élève
