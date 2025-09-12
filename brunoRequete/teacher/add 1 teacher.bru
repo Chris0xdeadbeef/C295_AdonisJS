@@ -1,11 +1,11 @@
 meta {
-  name: mettre a jour un eleve
+  name: add 1 teacher
   type: http
   seq: 5
 }
 
-put {
-  url: http://localhost:3333/students/13
+post {
+  url: http://localhost:3333/teacher/
   body: json
   auth: inherit
 }
@@ -13,7 +13,8 @@ put {
 body:json {
   {
     "name": "Alphacast",
-    "firstname": "PRRR"
+    "firstname": "PRRR",
+    "email":"monmail"
   }
 }
 
