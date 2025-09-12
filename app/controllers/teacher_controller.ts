@@ -19,10 +19,8 @@ export default class TeacherController {
    * Handle form submission for the create action
    */
   async store({ request, response }: HttpContext) {
-    console.log("STORE")
     // Récupération des données envoyées par le client
     const{name,firstname, email} = await request.validateUsing(teacherValidator);
-    console.log(email)
     // Création d'un nouvel élève avec les données récupérées
     const teacher = await Teacher.create({name, firstname,email})
     return response.created(teacher);
