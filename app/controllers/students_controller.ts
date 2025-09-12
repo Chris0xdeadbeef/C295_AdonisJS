@@ -1,4 +1,5 @@
 import Student from '#models/student'
+import { studentValidator } from '#validators/student';
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class StudentsController {
@@ -19,10 +20,10 @@ export default class StudentsController {
    */
   async store({ request, response }: HttpContext) {
     // Récupération des données envoyées par le client
-    // On utilise `request.only` pour ne récupérer que les champs nécessaires
-    const student = request.only(['name', 'firstname'])
+    const{name,firstname} = await request.validateUsing(studentValidator);
+    
     // Création d'un nouvel élève avec les données récupérées
-    const s = await Student.create(student)
+    const student = await Student.create({name, firstname})
     return response.created(student);
   }
   /**
