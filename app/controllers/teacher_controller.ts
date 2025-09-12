@@ -7,7 +7,7 @@ export default class TeacherController {
    * Display a list of resource
    */
   async index({ response }: HttpContext) {
-    const teacher = await Teacher.query().orderBy('name').orderBy('firstname')
+    const teacher = await Teacher.query().orderBy('name').orderBy('firstname').orderBy('email')
     return response.ok(teacher);
   }
   /**
@@ -19,11 +19,12 @@ export default class TeacherController {
    * Handle form submission for the create action
    */
   async store({ request, response }: HttpContext) {
+    console.log("STORE")
     // Récupération des données envoyées par le client
-    const{name,firstname} = await request.validateUsing(teacherValidator);
-    
+    const{name,firstname, email} = await request.validateUsing(teacherValidator);
+    console.log(email)
     // Création d'un nouvel élève avec les données récupérées
-    const teacher = await Teacher.create({name, firstname})
+    const teacher = await Teacher.create({name, firstname,email})
     return response.created(teacher);
   }
   /**
@@ -43,9 +44,9 @@ export default class TeacherController {
    */
   async update({ params, request }: HttpContext) {
     // Récupération des données envoyées par le client
-    const { name, firstname } = await request.validateUsing(teacherValidator)
+    const { name, firstname, email } = await request.validateUsing(teacherValidator)
     
-    const data = {name, firstname};
+    const data = {name, firstname, email};
     // Vérification de l'existence de l'élève
     const teacher = await Teacher.findOrFail(params.id)
     // Mise à jour des données de l'élève

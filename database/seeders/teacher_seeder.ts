@@ -1,9 +1,11 @@
 // database/seeders/student_seeder.ts
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
-import { TeacherFactory } from '#database/factories/teacher_factory'
+import Teacher from '#models/teacher'
 export default class TeacherSeeder extends BaseSeeder {
  public async run() {
  // Crée 10 teacher
- await TeacherFactory.createMany(10)
+ await Teacher.createMany([
+  {name:"Mveng", firstname:"Antoine", email: "antoine.mveng@eduvaud.ch"},
+ ])
  }
 }
