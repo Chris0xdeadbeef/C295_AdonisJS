@@ -9,6 +9,7 @@
 import router from '@adonisjs/core/services/router'
 import StudentsController from '#controllers/students_controller'
 import TeacherController from '#controllers/teacher_controller'
+import ClassgroupsController from '#controllers/classgroups_controller'
 
 router.get('test', async () => {
   return 'API is working!'
@@ -16,4 +17,5 @@ router.get('test', async () => {
 
 router.resource('students', StudentsController).apiOnly()
 router.resource('teacher', TeacherController).apiOnly()
+router.resource('classGroups', ClassgroupsController).apiOnly()
 
