@@ -11,6 +11,13 @@ export default class extends BaseSchema {
       table.string('name').notNullable()
       table.string('firstname').notNullable()
 
+      table
+      .integer('class_group_id')
+      .unsigned()
+      .references('id')
+      .inTable('class_groups')
+      .onDelete('CASCADE')
+
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })

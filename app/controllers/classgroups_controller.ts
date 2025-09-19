@@ -7,7 +7,7 @@ export default class ClassgroupsController {
    * Display a list of resource
    */
   async index({ response }: HttpContext) {
-      const classgroup = await ClassGroup.query().orderBy('name')
+      const classgroup = await ClassGroup.query().preload('teacher').orderBy('name','asc')
       return response.ok(classgroup);
     }
   /**
@@ -20,10 +20,10 @@ export default class ClassgroupsController {
    */
   async store({ request, response }: HttpContext) {
     // Récupération des données envoyées par le client
-    const{name} = await request.validateUsing(classgroupValidator);
+    const{name, teacherId} = await request.validateUsing(classgroupValidator);
     
     // Création d'un nouvel élève avec les données récupérées
-    const classgroup = await ClassGroup.create({name})
+    const classgroup = await ClassGroup.create({name, teacherId})
     return response.created(classgroup);
   }
   /**
