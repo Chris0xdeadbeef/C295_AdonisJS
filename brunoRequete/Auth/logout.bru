@@ -5,13 +5,13 @@ meta {
 }
 
 post {
-  url: http://localhost:3333/user/login
+  url: http://localhost:3333/user/logout
   body: json
   auth: bearer
 }
 
 auth:bearer {
-  token: 
+  token: {{token}
 }
 
 body:json {
