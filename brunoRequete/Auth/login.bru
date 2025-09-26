@@ -1,0 +1,27 @@
+meta {
+  name: login
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3333/user/register
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "username":"meron",
+    "password":"christopher"
+    
+  }
+}
+
+settings {
+  encodeUrl: true
+}

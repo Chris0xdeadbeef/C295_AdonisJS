@@ -1,0 +1,27 @@
+meta {
+  name: logout
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3333/user/login
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "username":"meron",
+    "password":"christopher"
+    
+  }
+}
+
+settings {
+  encodeUrl: true
+}
